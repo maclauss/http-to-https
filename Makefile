@@ -1,8 +1,7 @@
 $(eval GIT_COMMIT = $(shell git rev-parse HEAD))
 
 ALPINE_VERSION=3.9
-
-DOCKER_BASE=realkinetic/http-to-https
+DOCKER_BASE=http-to-https
 DOCKER_TAG=1.2
 
 default: build
@@ -27,4 +26,4 @@ debug: build
 	docker run -it -p80:80 --rm $(DOCKER_BASE):$(DOCKER_TAG) /bin/sh
 
 push: build
-	docker push $(DOCKER_BASE):$(DOCKER_TAG)
+	docker tag $(DOCKER_BASE):$(DOCKER_TAG) gcr.io/maximeclauss-perso/$(DOCKER_BASE):$(DOCKER_TAG) && docker push gcr.io/maximeclauss-perso/$(DOCKER_BASE):$(DOCKER_TAG)
